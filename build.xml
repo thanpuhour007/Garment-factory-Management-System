@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="GarmentFactory" default="run" basedir=".">
+   <!-- Set project properties -->
+   <property name="src" location="src"/>
+   <property name="build" location="build"/>
+   <property name="lib" location="lib"/>
+
+   <description>Builds, tests, and runs the project GarmentFactory.</description>
+
+   <!-- Import IDE-specific build script, if needed -->
+   <import file="nbproject/build-impl.xml"/>
+
+   <!-- Define classpath with external libraries -->
+   <path id="classpath">
+      <fileset dir="${lib}">
+         <include name="itextpdf-5.5.13.1.jar"/>  <!-- Include iText jar -->
+         <!-- Add more libraries here if necessary -->
+      </fileset>
+   </path>
+
+   <!-- Clean the build directory -->
+   <target name="clean">
+      <delete dir="${build}"/>
+   </target>
+
+   <!-- Compile the project -->
+   <target name="compile">
+      <mkdir dir="${build}"/> <!-- Ensure the build directory exists -->
+      <javac srcdir="${src}" destdir="${build}" includeantruntime="false" classpathref="classpath"/>
+   </target>
+
+   <!-- Run the project after compilation -->
+   <target name="run" depends="compile">
+      <java classname="garmentfactory.admin.Test" fork="true"> <!-- Fully qualified classname -->
+         <classpath>
+            <path refid="classpath"/> <!-- Use the defined classpath for libraries -->
+            <pathelement path="${build}"/> <!-- Include compiled class files -->
+         </classpath>
+      </java>
+   </target>
+
+</project>
